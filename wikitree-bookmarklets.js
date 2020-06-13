@@ -84,11 +84,26 @@ function parse_wikitree(current_loc) {
     //https://www.wikitree.com/g2g/507865/how-to-link-to-images-in-biography
     //https://www.wikitree.com/photo/jpg/Morozowska-1
     let parsed_link = '';
+    let parse_results = "";
     if (current_loc.includes('/photo')) {
+        // Photo
         let image_src = $('link[rel*="image_src"]').attr('href');
         image_src = image_src.substr(image_src.lastIndexOf('/') + 1);
         parsed_link = "[[:image:"+image_src+"|"+$('title').text()+"]]";
+    } else if (current_loc.match(/.*wikitree\.com\/wiki\/(\w*-\d*)($|\b)/)) {
+        // Profile
+        parse_results = current_loc.match(/.*wikitree\.com\/wiki\/(\w*-\d*)($|\b)/);
+        parsed_link = '[['+parse_results[1]+'|'+$('h1 span[itemprop*="name"]').text()+']]';
+    } else if (current_loc.match(/.*wikitree\.com\/wiki\/(Space:.*)($|\b)/)) {
+        // Free space page
+        parse_results = $('h1').text();
+        parsed_link = '[[Space:'+parse_results+'|'+parse_results+']]';
+    } else if (current_loc.match(/.*wikitree\.com\/wiki\/(Category:.*)($|\b)/)) {
+        // Category - essentially like free space
+        parse_results = $('h1').text();
+        parsed_link = '[[Category:'+parse_results+'|'+parse_results+']]';
     }
+
     return parsed_link;
 }
 
