@@ -38,7 +38,8 @@ REGEX: .*ancestry.*\.([a-z]{2,3})\/.*db(id)?=(\w*)&.*h=(\w*)(&|$|\b)
 // GROUP 3 and GROUP 4, Group 1 is Country
 
  */
-
+//https://javascript-minifier.com/
+//bookmarklet maker https://mrcoles.com/bookmarklet/
 
 function parse_ancestry(current_loc) {
      let parsed_link = '';
@@ -79,12 +80,22 @@ function parse_ancestry(current_loc) {
     return parsed_link;
 }
 
+function parse_wikitree(current_loc) {
+    //https://www.wikitree.com/g2g/507865/how-to-link-to-images-in-biography
+    //https://www.wikitree.com/photo/jpg/Morozowska-1
+    let parsed_link = '';
+    if (current_loc.includes('/photo')) {
+        let image_src = $('link[rel*="image_src"]').attr('href');
+        image_src = image_src.substr(image_src.lastIndexOf('/') + 1);
+        parsed_link = "[[:image:"+image_src+"|"+$('title').text()+"]]";
+    }
+    return parsed_link;
+}
 
 function parse_findgrave(current_loc) {
     //https://www.wikitree.com/wiki/Help:Links_to_FindAGrave
      let parsed_link = '';
      let parse_results = "";
-    // Remove backurls
     if (current_loc.includes('/memorial')) {
         // Image/source
         parse_results = current_loc.match(/.*memorial\/(\d*)(\/|$|\b)/);
@@ -112,32 +123,31 @@ if(location.host == "www.ancestry.com") {
     link = parse_ancestry(window.location.href);
 } else if(location.host == "www.findagrave.com") {
     link = parse_findgrave(window.location.href);
-} else {
+} else if(location.host == 'www.wikitree.com') {
+    link = parse_wikitree(window.location.href);
+}
+if (link == "") {
     link = "["+window.location.href+"|Link]"
 }
 copyToClipBoard(link);
 console.log(link);
 
+/*
 // Alert only
 if(location.host == "www.ancestry.com") {
     let link = parse_ancestry(window.location.href);
     alert(link);
     console.log(link);
 }
+*/
 
-//Alert Only
-javascript:(function()%7Bfunction%20parse_ancestry(e)%7Blet%20t%3D%22%22%2Cc%3D%22%22%3Breturn(e%3Dlocation.href).replace(%2F(%5C%3Fbackurl%3D.*)%2F%2C%22%22)%2Ct%3De.includes(%22%2Finteractive%22)%3Fnull!%3D(c%3De.match(%2F.*interactive%5C%2F(%5B%5Cw-%5D*)%5C%2F((.*imageId%3D(%5B%5Cw-%5D*))%7C(%5B%5Cw-%5D*))%2F))%5B4%5D%3F%22%7B%7BAncestry%20Image%7C%22%2Bc%5B1%5D%2B%22%7C%22%2Bc%5B4%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Image%7C%22%2Bc%5B1%5D%2B%22%7C%22%2Bc%5B2%5D%2B%22%7D%7D%22%3Ae.includes(%22family-tree%22)%3F%22person%22%3D%3D(c%3De.match(%2F.*%5C%2Ftree%5C%2F(%5B%5Cw-%5D*)%5C%2F(media%7Cperson)%5C%2F(%5B%5Cw-%5D*)%2F))%5B2%5D%3F%22%7B%7BAncestry%20Tree%7C%22%2Bc%5B1%5D%2B%22%7C%22%2Bc%5B3%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Tree%20Media%7C%22%2Bc%5B1%5D%2B%22%7C%22%2Bc%5B3%5D%2B%22%7D%7D%22%3Ae.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F)%3F%22%7B%7BAncestry%20Tree%7C%22%2B(c%3De.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F))%5B1%5D%2B%22%7C%22%2Bc%5B2%5D%2B%22%7D%7D%22%3Ae.match(%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F)%3F%22com%22!%3D(c%3De.match(%2F.*ancestry.*%5C.(%5Ba-z%5D%7B2%2C3%7D)%5C%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F))%5B1%5D%3F%22%7B%7BAncestry%20Record%7C%22%2Bc%5B3%5D%2B%22%7C%22%2Bc%5B4%5D%2B%22%7C%22%2Bc%5B1%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Record%7C%22%2Bc%5B3%5D%2B%22%7C%22%2Bc%5B4%5D%2B%22%7D%7D%22%3A%22%5B%22%2Bcurrent.loc%2B%22%7CAncestry%20Link%5D%22%7Dif(%22www.ancestry.com%22%3D%3Dlocation.host)%7Blet%20e%3Dparse_ancestry(window.location.href)%3Balert(e)%2Cconsole.log(e)%7D%7D)()
-
-// Copy to clipboard
-javascript:(function()%7Bfunction parse_ancestry(e)%7Blet c%3D""%2Ct%3D""%3Breturn(e%3Dlocation.href).replace(%2F(%5C%3Fbackurl%3D.*)%2F%2C"")%2Cc%3De.includes("%2Finteractive")%3Fnull!%3D(t%3De.match(%2F.*interactive%5C%2F(%5B%5Cw-%5D*)%5C%2F((.*imageId%3D(%5B%5Cw-%5D*))%7C(%5B%5Cw-%5D*))%2F))%5B4%5D%3F"%7B%7BAncestry Image%7C"%2Bt%5B1%5D%2B"%7C"%2Bt%5B4%5D%2B"%7D%7D"%3A"%7B%7BAncestry Image%7C"%2Bt%5B1%5D%2B"%7C"%2Bt%5B2%5D%2B"%7D%7D"%3Ae.includes("family-tree")%3F"person"%3D%3D(t%3De.match(%2F.*%5C%2Ftree%5C%2F(%5B%5Cw-%5D*)%5C%2F(media%7Cperson)%5C%2F(%5B%5Cw-%5D*)%2F))%5B2%5D%3F"%7B%7BAncestry Tree%7C"%2Bt%5B1%5D%2B"%7C"%2Bt%5B3%5D%2B"%7D%7D"%3A"%7B%7BAncestry Tree Media%7C"%2Bt%5B1%5D%2B"%7C"%2Bt%5B3%5D%2B"%7D%7D"%3Ae.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F)%3F"%7B%7BAncestry Tree%7C"%2B(t%3De.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F))%5B1%5D%2B"%7C"%2Bt%5B2%5D%2B"%7D%7D"%3Ae.match(%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F)%3F"com"!%3D(t%3De.match(%2F.*ancestry.*%5C.(%5Ba-z%5D%7B2%2C3%7D)%5C%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F))%5B1%5D%3F"%7B%7BAncestry Record%7C"%2Bt%5B3%5D%2B"%7C"%2Bt%5B4%5D%2B"%7C"%2Bt%5B1%5D%2B"%7D%7D"%3A"%7B%7BAncestry Record%7C"%2Bt%5B3%5D%2B"%7C"%2Bt%5B4%5D%2B"%7D%7D"%3A"%5B"%2Bcurrent.loc%2B"%7CAncestry Link%5D"%7Dconst copyToClipBoard%3De%3D>%7Bconst c%3Ddocument.createElement("textarea")%3Bc.value%3De%2Cdocument.body.appendChild(c)%2Cc.select()%2Cdocument.execCommand("copy")%2Cdocument.body.removeChild(c)%7D%3Bif("www.ancestry.com"%3D%3Dlocation.host)%7Blet e%3Dparse_ancestry(window.location.href)%3BcopyToClipBoard(e)%2Cconsole.log(e)%7D%7D)()
 
 // Copy to clipboard - w/ Find a grave support
-javascript:(function()%7Bfunction%20parse_ancestry(e)%7Blet%20a%3D%22%22%2Cn%3D%22%22%3Breturn%20e.replace(%2F(%5C%3Fbackurl%3D.*)%2F%2C%22%22)%2Ca%3De.includes(%22%2Finteractive%22)%3Fnull!%3D(n%3De.match(%2F.*interactive%5C%2F(%5B%5Cw-%5D*)%5C%2F((.*imageId%3D(%5B%5Cw-%5D*))%7C(%5B%5Cw-%5D*))%2F))%5B4%5D%3F%22%7B%7BAncestry%20Image%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Image%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B2%5D%2B%22%7D%7D%22%3Ae.includes(%22family-tree%22)%3F%22person%22%3D%3D(n%3De.match(%2F.*%5C%2Ftree%5C%2F(%5B%5Cw-%5D*)%5C%2F(media%7Cperson)%5C%2F(%5B%5Cw-%5D*)%2F))%5B2%5D%3F%22%7B%7BAncestry%20Tree%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B3%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Tree%20Media%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B3%5D%2B%22%7D%7D%22%3Ae.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F)%3F%22%7B%7BAncestry%20Tree%7C%22%2B(n%3De.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F))%5B1%5D%2B%22%7C%22%2Bn%5B2%5D%2B%22%7D%7D%22%3Ae.match(%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F)%3F%22com%22!%3D(n%3De.match(%2F.*ancestry.*%5C.(%5Ba-z%5D%7B2%2C3%7D)%5C%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F))%5B1%5D%3F%22%7B%7BAncestry%20Record%7C%22%2Bn%5B3%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7C%22%2Bn%5B1%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Record%7C%22%2Bn%5B3%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7D%7D%22%3A%22%5B%22%2Be%2B%22%7CAncestry%20Link%5D%22%7Dfunction%20parse_findgrave(e)%7Blet%20a%3D%22%22%2Cn%3D%22%22%3Breturn%20e.includes(%22%2Fmemorial%22)%3F(n%3De.match(%2F.*memorial%5C%2F(%5Cd*)(%5C%2F%7C%24%7C%5Cb)%2F)%2Ca%3D%22Find%20A%20Grave%2C%20database%20and%20images%20(accessed%20%22%2B(new%20Date).toLocaleDateString()%2B%22)%2C%20memorial%20page%20for%20%22%2B%24(%22%23bio-name%22).text()%2B%22%2C%20%7B%7BFindAGrave%7C%22%2Bn%5B1%5D%2B%22%7D%7D.%20Maintained%20by%20Find%20A%20Grave.%22)%3Aa%3D%22%5B%22%2Be%2B%22%7CFind%20a%20Grave%20Link%5D%22%2Ca%7Dconst%20copyToClipBoard%3De%3D%3E%7Bconst%20a%3Ddocument.createElement(%22textarea%22)%3Ba.value%3De%2Cdocument.body.appendChild(a)%2Ca.select()%2Cdocument.execCommand(%22copy%22)%2Cdocument.body.removeChild(a)%7D%3Blet%20link%3D%22%22%3BcopyToClipBoard(link%3D%22www.ancestry.com%22%3D%3Dlocation.host%3Fparse_ancestry(window.location.href)%3A%22www.findagrave.com%22%3D%3Dlocation.host%3Fparse_findgrave(window.location.href)%3A%22%5B%22%2Bwindow.location.href%2B%22%7CLink%5D%22)%2Cconsole.log(link)%7D)()
+javascript:(function()%7Bfunction%20parse_ancestry(e)%7Blet%20t%3D%22%22%2Cn%3D%22%22%3Breturn%20e.replace(%2F(%5C%3Fbackurl%3D.*)%2F%2C%22%22)%2Ct%3De.includes(%22%2Finteractive%22)%3Fnull!%3D(n%3De.match(%2F.*interactive%5C%2F(%5B%5Cw-%5D*)%5C%2F((.*imageId%3D(%5B%5Cw-%5D*))%7C(%5B%5Cw-%5D*))%2F))%5B4%5D%3F%22%7B%7BAncestry%20Image%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Image%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B2%5D%2B%22%7D%7D%22%3Ae.includes(%22family-tree%22)%3F%22person%22%3D%3D(n%3De.match(%2F.*%5C%2Ftree%5C%2F(%5B%5Cw-%5D*)%5C%2F(media%7Cperson)%5C%2F(%5B%5Cw-%5D*)%2F))%5B2%5D%3F%22%7B%7BAncestry%20Tree%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B3%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Tree%20Media%7C%22%2Bn%5B1%5D%2B%22%7C%22%2Bn%5B3%5D%2B%22%7D%7D%22%3Ae.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F)%3F%22%7B%7BAncestry%20Tree%7C%22%2B(n%3De.match(%2F.*tid%3D(%5B%5Cw-%5D*)%26.*pid%3D(%5B%5Cw-%5D*)%2F))%5B1%5D%2B%22%7C%22%2Bn%5B2%5D%2B%22%7D%7D%22%3Ae.match(%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F)%3F%22com%22!%3D(n%3De.match(%2F.*ancestry.*%5C.(%5Ba-z%5D%7B2%2C3%7D)%5C%2F.*db(id)%3F%3D(%5Cw*)%26.*h%3D(%5Cw*)(%26%7C%24%7C%5Cb)%2F))%5B1%5D%3F%22%7B%7BAncestry%20Record%7C%22%2Bn%5B3%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7C%22%2Bn%5B1%5D%2B%22%7D%7D%22%3A%22%7B%7BAncestry%20Record%7C%22%2Bn%5B3%5D%2B%22%7C%22%2Bn%5B4%5D%2B%22%7D%7D%22%3A%22%5B%22%2Be%2B%22%7CAncestry%20Link%5D%22%7Dfunction%20parse_wikitree(e)%7Blet%20t%3D%22%22%3Bif(e.includes(%22%2Fphoto%22))%7Blet%20e%3D%24('link%5Brel*%3D%22image_src%22%5D').attr(%22href%22)%3Bt%3D%22%5B%5B%3Aimage%3A%22%2B(e%3De.substr(e.lastIndexOf(%22%2F%22)%2B1))%2B%22%7C%22%2B%24(%22title%22).text()%2B%22%5D%5D%22%7Dreturn%20t%7Dfunction%20parse_findgrave(e)%7Blet%20t%3D%22%22%2Cn%3D%22%22%3Breturn%20e.includes(%22%2Fmemorial%22)%3F(n%3De.match(%2F.*memorial%5C%2F(%5Cd*)(%5C%2F%7C%24%7C%5Cb)%2F)%2Ct%3D%22Find%20A%20Grave%2C%20database%20and%20images%20(accessed%20%22%2B(new%20Date).toLocaleDateString()%2B%22)%2C%20memorial%20page%20for%20%22%2B%24(%22%23bio-name%22).text()%2B%22%2C%20%7B%7BFindAGrave%7C%22%2Bn%5B1%5D%2B%22%7D%7D.%20Maintained%20by%20Find%20A%20Grave.%22)%3At%3D%22%5B%22%2Be%2B%22%7CFind%20a%20Grave%20Link%5D%22%2Ct%7Dconst%20copyToClipBoard%3De%3D%3E%7Bconst%20t%3Ddocument.createElement(%22textarea%22)%3Bt.value%3De%2Cdocument.body.appendChild(t)%2Ct.select()%2Cdocument.execCommand(%22copy%22)%2Cdocument.body.removeChild(t)%7D%3Blet%20link%3D%22%22%3B%22www.ancestry.com%22%3D%3Dlocation.host%3Flink%3Dparse_ancestry(window.location.href)%3A%22www.findagrave.com%22%3D%3Dlocation.host%3Flink%3Dparse_findgrave(window.location.href)%3A%22www.wikitree.com%22%3D%3Dlocation.host%26%26(link%3Dparse_wikitree(window.location.href))%2C%22%22%3D%3Dlink%26%26(link%3D%22%5B%22%2Bwindow.location.href%2B%22%7CLink%5D%22)%2CcopyToClipBoard(link)%2Cconsole.log(link)%7D)()
 
 
 
-// Update links in text box
-
+// Mass update all links in a bio box
 function parse_ancestry(current_loc) {
      let parsed_link = '';
      let parse_results = "";
