@@ -1,0 +1,466 @@
+
+body {
+    background: #f0f0ef;
+    color: #000;
+}
+
+@media only screen and (min-width: 1300px) {
+    .wrapper {
+        background: #fff;
+    }
+}
+.qa-a-item-selected{background-color: #eee}
+.qa-c-item-content{color:#333}
+@media only screen and (min-width: 980px) and (max-width: 1299px) {
+    .wrapper {
+        background: #fff;
+    }
+}
+
+@media only screen and (max-width: 979px) {
+    .wrapper {
+        background: #fff;
+    }
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    color: #393a3c;
+}
+
+
+.subheader {
+    color: #777;
+}
+
+
+p.lead {
+    color: #777;
+}
+
+
+.strong, strong, b {
+    color: #000;
+}
+
+.white {
+    color: #fff;
+}
+
+
+a:link {
+    color: #060;
+}
+
+a:visited {
+    color: #25422d;
+}
+
+a:focus {
+    background: #ccc;
+}
+
+a:hover {
+    background: #ffe270;
+}
+
+a:active {
+    color: #8ec641;
+}
+
+table.wt th {
+    background: #edf0f2;
+}
+
+
+table.wt th.selected {
+    background-color: #25422d;
+}
+
+table.wt th.selected a {
+    color: #fff;
+}
+
+
+.button, button, input[type="submit"], input[type="reset"], input[type="button"] {
+    background: #25422d;
+    color: #fff;
+}
+
+.button:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+    color: #fff;
+    background: #8ec641;
+}
+
+.button:not(input[type="file"]):active, button:active, input[type="submit"]:active, input[type="reset"]:active, input[type="button"]:active {
+    color: #fff;
+}
+
+
+a.button, .button a {
+    color: #fff;
+}
+
+.button.white, button.white {
+    color: #fff !important;
+}
+
+.button.white:hover, button.white:hover {
+    color: #25422d !important
+}
+
+.button.white:active, button.white:active {
+    color: #25422d;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    color: #000;
+    background: #fff;
+}
+
+.select select, select {
+    color: #000;
+}
+
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+    color: #000;
+}
+
+
+label span, legend span {
+    color: #444;
+}
+
+
+.box h6 {
+    color: #000;
+}
+
+.box.green {
+    background: #e1f0b4;
+    color: #000;
+}
+
+.box.orange {
+    background: #ffe270;
+    color: #000;
+}
+
+.box.rounded {
+    background-color: #fff;
+}
+
+.box.rounded.orange {
+    background-color: #fff;
+}
+
+.box.rounded.green {
+    background-color: #fff;
+}
+
+.testimonial {
+    background-color: #fff;
+}
+
+
+.ACTIVE {
+    background-color: #d1f6bd;
+}
+
+.BLANK {
+    background-color: #ffffa0;
+}
+
+
+.TREE-STATUS:hover {
+    background-color: #ffffa0;
+}
+
+
+.status {
+    background-color: #ffe270;
+}
+
+.green {
+    background-color: #e1f0b4;
+}
+
+.red {
+    background-color: #ddd;
+}
+
+.NOTICE {
+    background-color: #ffffda;
+}
+
+.EXAMPLE {
+    background-color: #eee;
+}
+
+.WIKITREER {
+    background-color: #f4cd55;
+}
+
+
+.HIGHLIGHT {
+    background-color: #ffffa0;
+}
+
+.SECTION {
+    color: #253b2f;
+}
+
+
+.TAG {
+    color: #fff;
+
+    background-color: #8fc741;
+
+}
+
+.TAG:hover {
+    background: #25422d;
+}
+
+.TAG-DNA {
+    background: #25422d;
+}
+
+.TAG-DNA:hover {
+    background: #fcb815;
+}
+
+.TAG-SURNAME {
+    background: #fcb815;
+}
+
+
+#commentsform {
+    background-color: #f4cd55;
+}
+
+
+.PCOMMENT {
+    background-color: #ddd;
+}
+
+.mergeany {
+    background-color: #ffffa0;
+}
+
+.pseudolink {
+    color: #060;
+}
+
+.pseudolink:hover {
+    background-color: #f3b51b;
+}
+
+
+.fixedbox {
+    background-color: #fff;
+}
+
+.HISTORY-DATE, .THANKYOU-DATE {
+    background-color: #8fc641;
+    color: #fff;
+}
+
+
+.VOLUNTEER {
+    background-color: #ffffa0;
+}
+
+body.profile .HISTORY-DATE {
+    color: #000;
+}
+
+
+#header {
+    background: none;
+    background-color: #f7f6f0;
+}
+
+
+#footer {
+    background: none;
+    background-color: #25422d;
+}
+
+#footer p {
+    color: #fff !important;
+}
+
+#footer a {
+    color: #fff;
+}
+
+#footer a:link, .footer a:visited {
+    color: #fff;
+}
+
+
+ul.pureCssMenu, ul.pureCssMenu ul {
+    background-color: #fff;
+}
+
+
+ul.pureCssMenu a, ul.pureCssMenu li.dis a:hover, ul.pureCssMenu li.sep a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+
+ul.pureCssMenu li.sep span {
+    background-color: #a6a6a6;
+}
+
+
+ul.pureCssMenu li:hover > a {
+    background-color: #fff;
+    color: #fec017;
+}
+
+ul.pureCssMenu ul li a:hover {
+    background-color: #ffe270 !important;
+    color: #000;
+}
+
+ul.pureCssMenu li a:hover {
+    background-color: #fff;
+    color: #fec017;
+}
+
+ul.pureCssMenu li.dis a {
+    color: #aaa !important
+}
+
+ul.views {
+    background-color: #fff;
+}
+
+
+ul.views a, ul.views li.dis a:hover, ul.views li.sep a:hover {
+    background-color: #fff;
+    color: #050;
+}
+
+
+ul.views li:hover > a {
+    background-color: #ffe270;
+    color: #000;
+}
+
+ul.views li a:hover {
+    background-color: #ffe270;
+    color: #000;
+}
+
+ul.views li.dis a {
+    color: #050;
+!important
+}
+
+ul.views li a.current {
+    background: #ffe270;
+}
+
+
+.addthis_toolbox a:link {
+    color: #000;
+}
+
+
+ul.profile-tabs li {
+    background: #e1f0b4;
+}
+
+ul.profile-tabs li:hover {
+    background: #ffe270;
+}
+
+ul.profile-tabs li.current {
+    background: #ffe270;
+}
+
+ul.profile-tabs li.locked {
+    background-color: #e1f0b4;
+}
+
+
+ul.profile-tabs {
+    border-bottom: 2px solid #ffe270;
+}
+
+ul.profile-tabs li {
+    background: #e1f0b4;
+}
+
+ul.profile-tabs li:hover {
+    background: #ffe270;
+}
+
+ul.profile-tabs li.current {
+    background: #ffe270;
+}
+
+ul.profile-tabs li.locked {
+    background-color: #e1f0b4;
+}
+
+
+.autocomplete-suggestions {
+    background: #fff;
+}
+
+.autocomplete-suggestion {
+    color: #333;
+}
+
+.autocomplete-suggestion b {
+    color: #1f8dd6;
+}
+
+.autocomplete-suggestion.selected {
+    background: #f0f0f0;
+}
+
+.autocomplete-suggestion-term {
+    color: #1f8dd6;
+}
+
+
+.comment-archived {
+    background: #f5f5f5;
+}
+
+
+.comment button {
+    background: none;
+    color: #536051;
+}
+
+.comment button:hover {
+    color: #000;
+    background: #ffe270;
+}
+
+
+#commentPostDiv button, #commentEditDiv button {
+    background: #25422d;
+    color: #fff;
+}
+
+#commentPostDiv button:hover, #commentEditDiv button:hover {
+    background: #90c800;
+}
+
+
+.comment-info {
+    color: #536051;
+}
+
+#header, #footer {
+    background: none;
+}
