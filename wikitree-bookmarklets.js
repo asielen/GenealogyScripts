@@ -20,6 +20,11 @@ REGEX: .*interactive\/([\w-]*)\/((.*imageId=([\w-]*))|([\w-]*))
 // Group 1 and Group 4 or Group 1 and Group 2
 // if there is a group 4, go with 1,4 else 1,2
 
+Imageviewer
+https://www.ancestry.com/imageviewer/collections/6061/images/4300971_00153?pId=60260556&backurl=https%3A%2F%2Fwww.ancestry.com%2Ffamily-tree%2Fperson%2Ftree%2F11748183%2Fperson%2F-405942447%2Ffacts
+REGEX: .*imageviewer\/collections\/([\w-]*)\/images\/([\w-]*)\?
+
+
 Family Tree - person/media
 https://www.ancestry.com/family-tree/person/tree/1234/person/5678/facts
 https://www.ancestry.com/family-tree/tree/1234/media/5678
@@ -60,6 +65,10 @@ function parse_ancestry(current_loc) {
         } else {
             parsed_link = "{{Ancestry Image|"+parse_results[1]+"|"+parse_results[2]+"}}";
         }
+    } else if (current_loc.includes('imageviewer/collections')) {
+        // Image alternative version
+        parse_results = current_loc.match(/.*imageviewer\/collections\/([\w-]*)\/images\/([\w-]*)\?.*/);
+        parsed_link = "{{Ancestry Image|"+parse_results[1]+"|"+parse_results[2]+"}}";
     } else if (current_loc.includes('family-tree')) {
         //Tree
         parse_results = current_loc.match(/.*\/tree\/([\w-]*)\/(media|person)\/([\w-]*)/);
